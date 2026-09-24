@@ -134,6 +134,72 @@
     update();
   }
 
+
+  /* ---- Location picker (utility bar): choose a location; remembered per browser ---- */
+  var pick = document.querySelector('.rd-locpick');
+  if (pick) {
+    var pbtn = pick.querySelector('.rd-loc'), pmenu = pick.querySelector('.rd-locmenu');
+    var setMenu = function (open) { pmenu.hidden = !open; pbtn.setAttribute('aria-expanded', String(open)); };
+    var applyLoc = function (opt) {
+      if (!opt) return;
+      document.querySelectorAll('[data-loc-name]').forEach(function (el) { el.textContent = opt.getAttribute('data-loc-label'); });
+      document.querySelectorAll('[data-loc-phone]').forEach(function (el) {
+        el.setAttribute('href', 'tel:' + opt.getAttribute('data-loc-tel'));
+        var t = el.querySelector('span'); if (t) t.textContent = opt.getAttribute('data-loc-phone-text');
+      });
+      pmenu.querySelectorAll('[data-loc]').forEach(function (b) { b.setAttribute('aria-current', String(b === opt)); });
+    };
+    pbtn.addEventListener('click', function (e) { e.stopPropagation(); setMenu(pmenu.hidden); });
+    pmenu.querySelectorAll('[data-loc]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        applyLoc(b);
+        try { localStorage.setItem('rd-loc', b.getAttribute('data-loc')); } catch (err) {}
+        setMenu(false); pbtn.focus();
+      });
+    });
+    document.addEventListener('click', function (e) { if (!pick.contains(e.target)) setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pmenu.hidden) { setMenu(false); pbtn.focus(); } });
+    var saved = null;
+    try { saved = localStorage.getItem('rd-loc'); } catch (err) {}
+    // A location's own page always shows that location, and becomes the remembered choice
+    var pageLoc = document.querySelector('[data-loc-page]');
+    if (pageLoc) { saved = pageLoc.getAttribute('data-loc-page'); try { localStorage.setItem('rd-loc', saved); } catch (err) {} }
+    applyLoc(pmenu.querySelector('[data-loc="' + (saved || '') + '"]') || pmenu.querySelector('[data-loc]'));
+  }
+
+  /* ---- Locations finder: live search + state chips ---- */
+  var finder = document.querySelector('[data-finder]');
+  if (finder) {
+    var q = finder.querySelector('[data-finder-q]'), chipsEl = finder.querySelectorAll('[data-state]');
+    var states = document.querySelectorAll('.rd-lstate'), empty = document.querySelector('[data-finder-empty]');
+    var active = 'all';
+    var run = function () {
+      var term = (q.value || '').trim().toLowerCase(), shown = 0;
+      states.forEach(function (sec) {
+        var inState = active === 'all' || sec.getAttribute('data-state') === active, n = 0;
+        sec.querySelectorAll('.rd-lcard').forEach(function (c) {
+          var hit = inState && (!term || c.getAttribute('data-search').indexOf(term) > -1 || c.textContent.toLowerCase().indexOf(term) > -1);
+          c.hidden = !hit; if (hit) n++;
+        });
+        sec.hidden = n === 0; shown += n;
+      });
+      if (empty) empty.hidden = shown > 0;
+    };
+    chipsEl.forEach(function (c) {
+      c.addEventListener('click', function (e) {
+        e.preventDefault();
+        active = c.getAttribute('data-state');
+        chipsEl.forEach(function (x) { x.classList.toggle('is-on', x === c); x.setAttribute('aria-current', String(x === c)); });
+        run();
+      });
+    });
+    q.addEventListener('input', run);
+    finder.addEventListener('submit', function (e) { e.preventDefault(); run(); });
+    var h = (location.hash || '').replace('#state-', '');
+    var pre = finder.querySelector('[data-state="' + h + '"]');
+    if (pre && h) pre.click();
+  }
+
   /* ---- Mockup forms don't submit anywhere ---- */
   document.querySelectorAll('form[data-mock]').forEach(function (f) {
     f.addEventListener('submit', function (e) {

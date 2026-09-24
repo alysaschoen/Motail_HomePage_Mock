@@ -137,8 +137,14 @@
 <div class="rd-util" role="region" aria-label="Location and quick links">
   <div class="rd-wrap">
     <div class="rd-util__left">
-      <a class="rd-loc" href="#" data-mock-off title="Not part of this mockup yet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.3 7 13 7 13s7-7.7 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg><span class="rd-util__hide-sm">Your location:</span> <b>Des Moines, IA</b> <u>Change</u></a>
-      <a href="tel:+15159692275" class="rd-util__hide-sm"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>(515) 969-2275</a>
+      <div class="rd-locpick">
+        <button class="rd-loc" type="button" aria-expanded="false" aria-controls="rd-locmenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.3 7 13 7 13s7-7.7 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg><span class="rd-util__hide-sm">Your location:</span> <b data-loc-name>Des Moines, IA</b> <u>Change</u></button>
+        <ul class="rd-locmenu" id="rd-locmenu" hidden>
+          <li class="rd-locmenu__state" role="presentation">Arizona</li><li><button type="button" data-loc="sandbox-valley" data-loc-label="Sandbox Valley" data-loc-phone-text="(555) 010-0199" data-loc-tel="+15550100199">Sandbox Valley<small>Sample location</small></button></li><li class="rd-locmenu__state" role="presentation">Iowa</li><li><button type="button" data-loc="des-moines" data-loc-label="Des Moines, IA" data-loc-phone-text="(515) 969-2275" data-loc-tel="+15159692275">Des Moines, IA<small>Flagship · Open now · Inside Paws &amp; Pints</small></button></li>
+          <li><a class="rd-locmenu__all" href="locations.html">See all locations →</a></li>
+        </ul>
+      </div>
+      <a href="tel:+15159692275" class="rd-util__hide-sm" data-loc-phone><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span>(515) 969-2275</span></a>
     </div>
     <div class="rd-util__right">
       <a href="franchise.html">Own a franchise</a>
@@ -158,10 +164,10 @@
         </li>
         <li><a href="membership.html">Membership</a></li>
         <li><a href="new-customers.html">New Customers</a></li>
-        <li><a href="#" data-mock-off title="Not part of this mockup yet">Locations</a></li>
+        <li><a href="locations.html">Locations</a></li>
         <li class="rd-nav__item">
           <button class="rd-nav__parent" type="button" aria-expanded="false" aria-controls="rd-about">About <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 4 6 8l4.5-4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
-          <ul class="rd-nav__menu" id="rd-about"><li><a href="#" data-mock-off title="Not part of this mockup yet">Our Story<small>Where we came from, and Paws & Pints</small></a></li><li><a href="#" data-mock-off title="Not part of this mockup yet">Mission & Values<small>What we believe about dog care</small></a></li><li><a href="#" data-mock-off title="Not part of this mockup yet">FAQ<small>Answers before you book</small></a></li></ul>
+          <ul class="rd-nav__menu" id="rd-about"><li><a href="our-story.html">Our Story<small>Where we came from, and Paws & Pints</small></a></li><li><a href="#" data-mock-off title="Not part of this mockup yet">Mission & Values<small>What we believe about dog care</small></a></li><li><a href="#" data-mock-off title="Not part of this mockup yet">FAQ<small>Answers before you book</small></a></li></ul>
         </li>
       </ul>
     </nav>
@@ -447,7 +453,7 @@
       <div>
         <h2>Company</h2>
         <ul>
-          <li><a href="#" data-mock-off title="Not part of this mockup yet">Our story</a></li>
+          <li><a href="our-story.html">Our story</a></li>
           <li><a href="#" data-mock-off title="Not part of this mockup yet">Mission &amp; values</a></li>
           <li><a href="new-customers.html">New customers</a></li>
           <li><a href="#" data-mock-off title="Not part of this mockup yet">FAQ</a></li>
@@ -457,9 +463,9 @@
       <div>
         <h2>Locations</h2>
         <ul>
-          <li><a href="#" data-mock-off title="Not part of this mockup yet">Des Moines, IA</a></li>
-          <li><a href="#" data-mock-off title="Not part of this mockup yet">All locations</a></li>
-          <li><a href="#" data-mock-off title="Not part of this mockup yet">Coming soon: get notified</a></li>
+          <li><a href="locations.html">Des Moines, IA</a></li>
+          <li><a href="locations.html">All locations</a></li>
+          <li><a href="locations.html#notify">Coming soon: get notified</a></li>
           <li><a href="franchise.html">Own a franchise</a></li>
         </ul>
       </div>
@@ -479,7 +485,7 @@
           <a href="https://www.instagram.com/motailandspaw/" target="_blank" rel="noopener" aria-label="Instagram"><img src="instagram-brands-solid.svg" alt=""></a>
           <a href="https://www.linkedin.com/company/mo-tail-and-spaw/" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="linkedin-brands-solid.svg" alt=""></a>
         </div>
-        <p class="rd-footer__sister">Part of the Paws &amp; Pints family. <a href="#" data-mock-off title="Not part of this mockup yet">How we're connected →</a></p>
+        <p class="rd-footer__sister">Part of the Paws &amp; Pints family. <a href="our-story.html">How we're connected →</a></p>
       </div>
     </div>
     <div class="rd-footer__bottom">
@@ -494,7 +500,7 @@
   </div>
 </footer>
 <nav class="rd-actionbar" aria-label="Quick actions">
-  <a class="rd-btn rd-btn--ghost" href="tel:+15159692275">Call</a>
+  <a class="rd-btn rd-btn--ghost" href="tel:+15159692275" data-loc-phone>Call</a>
   <a class="rd-btn rd-btn--primary" href="https://pawsandpints.app.link/app" data-book="mobilebar" data-book-label="a visit">Book</a>
   <a class="rd-btn rd-btn--ghost" href="https://maps.app.goo.gl/TuUTK9XTyUs4bWcH9" target="_blank" rel="noopener">Directions</a>
 </nav>
