@@ -686,7 +686,7 @@ details.rd-acc a, details.wp-block-details a { color: var(--rd-carbon) !importan
 .rd-phero__media img { width: 100%; aspect-ratio: 4 / 5; max-height: 560px; object-fit: cover; object-position: 50% 12%; display: block;
   border-radius: 240px 240px var(--rd-radius) var(--rd-radius); }
 .rd-phero__badge { position: absolute; left: -18px; bottom: 28px; width: 104px; height: 104px; border-radius: 50%; background: #fff;
-  display: grid; place-items: center; color: var(--rd-svc-daycare); box-shadow: 0 6px 18px rgba(37,42,54,.16); }
+  display: grid; place-items: center; color: var(--rd-svc, var(--rd-svc-daycare)); box-shadow: 0 6px 18px rgba(37,42,54,.16); }
 .rd-phero__badge svg { width: 82px; height: 82px; fill: currentColor; }
 @media (max-width: 860px) { .rd-phero__badge { left: 12px; } }
 
@@ -890,3 +890,39 @@ details.rd-acc a, details.wp-block-details a { color: var(--rd-carbon) !importan
   box-shadow: inset 0 0 0 6px #fff, 0 0 0 1px var(--rd-lime-200); border: 6px solid #fff; outline: 1px solid var(--rd-lime-200); }
 /* Headshots from different shoots: black & white keeps the set consistent */
 .rd-leader__photo { filter: grayscale(1) contrast(1.08) brightness(1.02); }
+
+
+/* =====================================================================
+   LODGING PAGE (purple splash via .rd-svcpage--lodging)
+   ===================================================================== */
+.rd-suites { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+@media (max-width: 960px) { .rd-suites { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; } }
+.rd-suite { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--rd-cloud-200); border-radius: var(--rd-radius); overflow: hidden; }
+.rd-suite.is-top { border-color: var(--rd-svc); box-shadow: 0 0 0 1px var(--rd-svc); }
+.rd-suite__img { aspect-ratio: 3 / 2; overflow: hidden; }
+.rd-suite__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rd-suite__body { padding: 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.rd-suite__tag { margin: 0; align-self: flex-start; padding: 3px 10px; border-radius: 999px; background: var(--rd-svc-tint); color: var(--rd-svc-ink); font: 700 12px var(--rd-condensed); letter-spacing: .1em; text-transform: uppercase; }
+.rd-suite .rd-h3 { margin: 0; color: var(--rd-svc-ink); }
+.rd-suite__meta { margin: 0; color: var(--rd-muted); font-weight: 600; }
+.rd-suite__prices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 4px 0 6px; }
+.rd-suite__prices div { background: var(--rd-cloud-100); border-radius: 14px; padding: 12px 14px; display: grid; }
+.rd-suite__prices span { font: 700 12px var(--rd-condensed); letter-spacing: .1em; text-transform: uppercase; color: var(--rd-ink-400); }
+.rd-suite__prices strong { font: 400 34px/1.05 var(--rd-display); color: var(--rd-carbon); }
+.rd-suite__prices small { color: var(--rd-muted); font-size: 13px; }
+.rd-suite .rd-checklist { margin-top: 4px; }
+
+.rd-menus { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+@media (max-width: 860px) { .rd-menus { grid-template-columns: 1fr; } }
+.rd-menu th { font-weight: 600; color: var(--rd-carbon); white-space: normal; }
+.rd-menu td { text-align: right; font-weight: 700; color: var(--rd-carbon); }
+.rd-policy th { width: 38%; color: var(--rd-carbon); white-space: normal; font-weight: 700; vertical-align: top; }
+.rd-policy td { white-space: normal; color: var(--rd-muted); font-weight: 400 !important; }
+
+.rd-safety { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+@media (max-width: 900px) { .rd-safety { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .rd-safety { grid-template-columns: 1fr; } }
+.rd-safety li { background: var(--rd-ink-600); border-radius: var(--rd-radius); padding: 22px; display: grid; gap: 6px; }
+.rd-safety strong { font: 400 30px/1 var(--rd-display); color: var(--rd-lime-300); }
+.rd-safety span { color: var(--rd-ink-50); }
+.rd-safety__note { margin: 22px 0 0; max-width: 80ch; color: var(--rd-ink-200); font-size: 15px; }
