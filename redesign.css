@@ -1207,3 +1207,9 @@ details.rd-acc a, details.wp-block-details a { color: var(--rd-carbon) !importan
 .rd-p101__help a { color: var(--rd-svc-ink, var(--rd-lime-700)); font-weight: 700; white-space: nowrap; }
 .rd-p101__help a::after { content: " →"; }
 .rd-p101__note { margin: 20px 0 0; color: var(--rd-muted); font-size: 14px; }
+
+/* Paws Pickup: single sponsor credit instead of repeated ad copy */
+.rd-sponsor { margin-top: 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 16px 20px; border: 1px dashed var(--rd-cloud-200); border-radius: var(--rd-radius); }
+.rd-sponsor__label { font: 700 12px var(--rd-condensed); letter-spacing: .12em; text-transform: uppercase; color: var(--rd-ink-400); }
+.rd-sponsor p { margin: 0; color: var(--rd-muted); }
+.rd-sponsor a { color: var(--rd-carbon); }
