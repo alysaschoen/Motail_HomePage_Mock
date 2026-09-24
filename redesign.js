@@ -244,6 +244,32 @@
   var hashSlug = (location.hash || '').slice(1);
   if (hashSlug && document.getElementById('dlg-' + hashSlug)) openDlg(document.getElementById('dlg-' + hashSlug));
 
+  /* ---- Careers: filter roles by location/team; "Apply" pre-fills the form; #slug pre-filters a location ---- */
+  var jf = document.querySelector('[data-jobfilter]');
+  if (jf) {
+    var jl = jf.querySelector('[data-jf-loc]'), jd = jf.querySelector('[data-jf-dept]');
+    var jobs = document.querySelectorAll('.rd-job'), jcount = document.querySelector('[data-jf-count]'), jempty = document.querySelector('[data-jf-empty]');
+    var jrun = function () {
+      var n = 0;
+      jobs.forEach(function (j) {
+        var hit = (jl.value === 'all' || j.getAttribute('data-loc') === jl.value) && (jd.value === 'all' || j.getAttribute('data-dept') === jd.value);
+        j.hidden = !hit; if (hit) n++;
+      });
+      if (jcount) jcount.textContent = n + (n === 1 ? ' open role' : ' open roles');
+      if (jempty) jempty.hidden = n > 0;
+    };
+    jl.addEventListener('change', jrun); jd.addEventListener('change', jrun);
+    var jh = (location.hash || '').slice(1);
+    if (jh && jl.querySelector('option[value="' + jh + '"]')) { jl.value = jh; jrun(); }
+    document.querySelectorAll('[data-apply]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var v = a.getAttribute('data-apply').split('|');
+        var al = document.querySelector('[data-apply-loc]'), ar = document.querySelector('[data-apply-role]');
+        if (al) al.value = v[0]; if (ar) ar.value = v[1];
+      });
+    });
+  }
+
   /* ---- Mockup forms don't submit anywhere ---- */
   document.querySelectorAll('form[data-mock]').forEach(function (f) {
     f.addEventListener('submit', function (e) {

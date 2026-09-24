@@ -1830,3 +1830,38 @@ details.rd-lcard__hours > :not(summary) { padding: 0 !important; color: var(--rd
 .rd-lp__nap { margin: 20px 0 28px; }
 .rd-lp .rd-phero .rd-btns { margin-top: 0; }
 .rd-lp__media .rd-lcard__badge { left: 14px; top: 14px; right: auto; font-size: 11px !important; padding: 4px 10px !important; }
+
+
+/* =====================================================================
+   CAREERS
+   ===================================================================== */
+.rd-jobfilter { display: flex; gap: 12px; flex-wrap: wrap; }
+.rd-jobfilter label { font-size: 13px; font-weight: 700; }
+.rd-jobfilter select { min-width: 200px; min-height: 44px; }
+.rd-jobcount { margin: 0 0 12px; font: 700 13px var(--rd-condensed); letter-spacing: .12em; text-transform: uppercase; color: var(--rd-ink-400); }
+.rd-jobs { display: grid; gap: 10px; }
+.rd-job { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 20px; align-items: center; padding: 18px 22px; background: #fff;
+  border: 1px solid var(--rd-cloud-200); border-radius: 16px; transition: border-color .2s, box-shadow .2s; }
+.rd-job:hover { border-color: var(--rd-lime-600); box-shadow: var(--rd-shadow); }
+.rd-job__main { display: grid; gap: 4px; justify-items: start; }
+.rd-job__title { margin: 2px 0 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.rd-job__open { margin: 0 !important; font-size: 10px !important; padding: 3px 8px !important; }
+.rd-job__where { margin: 0; display: inline-flex; align-items: center; gap: 4px; font-weight: 700; font-size: 14px; color: var(--rd-ink-600); }
+.rd-job__where svg { width: 14px; height: 14px; fill: var(--rd-lime-700); }
+.rd-job__blurb { margin: 0; color: var(--rd-muted); font-size: 15px; }
+.rd-job__facts { margin: 0; display: grid; grid-template-columns: auto auto; gap: 4px 20px; }
+.rd-job__facts dt { font: 700 11px var(--rd-condensed); letter-spacing: .12em; text-transform: uppercase; color: var(--rd-ink-400); }
+.rd-job__facts dd { margin: 0; font-weight: 700; font-size: 14px; white-space: nowrap; }
+.rd-job__facts div { display: grid; gap: 2px; }
+@media (max-width: 800px) {
+  .rd-job { grid-template-columns: 1fr; gap: 12px; }
+  .rd-job .rd-btn { justify-self: start; }
+  .rd-jobfilter select { min-width: 0; width: 100%; }
+  .rd-jobfilter label { flex: 1 1 140px; }
+}
+/* Long option labels (e.g. "Oklahoma City, OK (opening soon)") must not widen forms on phones */
+.rd-grid-2 > *, .rd-form .rd-row > * { min-width: 0; }
+.rd-form select { width: 100%; max-width: 100%; }
+@media (max-width: 600px) { .rd-form .rd-row { grid-template-columns: 1fr; } }
+.rd-form input, .rd-form select, .rd-form textarea { width: 100%; min-width: 0; box-sizing: border-box; }
+.rd-jobmore { margin: 16px 0 0; color: var(--rd-muted); }
