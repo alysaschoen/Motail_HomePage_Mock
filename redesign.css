@@ -1048,7 +1048,7 @@ details.rd-acc a, details.wp-block-details a { color: var(--rd-carbon) !importan
 .rd-dot--lodging  { --dot: var(--rd-svc-lodging); }
 .rd-dot--grooming { --dot: var(--rd-svc-grooming); }
 .rd-dot--pickup   { --dot: var(--rd-svc-pickup); }
-.rd-dot--member   { --dot: var(--rd-lime-500); }
+.rd-dot--member   { --dot: var(--rd-svc-member); }
 .rd-dot--visit    { --dot: var(--rd-ink-600); }
 .rd-tabs--dots a:hover::before, .rd-tabs--dots a.is-active::before { box-shadow: 0 0 0 2px #fff; }
 
@@ -1542,3 +1542,291 @@ details.rd-lcard__hours > :not(summary) { padding: 0 !important; color: var(--rd
 @media (max-width: 1024px) { .rd-founders .rd-lead-grid--two { gap: 0; } .rd-founders .rd-lead-card + .rd-lead-card { border-top: 0; border-radius: 0; }
   .rd-founders .rd-lead-card:first-child { border-radius: var(--rd-radius) var(--rd-radius) 0 0; } }
 @media (max-width: 600px) { .rd-founders__pack { flex-direction: column; } .rd-founders__pack .rd-lead-card__packlabel { text-align: center; } }
+
+/* FAQ page: +/× toggles take each category's colour (General = lime, Membership = Mint) */
+.rd-svcpage--general { --rd-svc: var(--rd-lime-500); --rd-svc-tint: var(--rd-lime-100, #EEF7D6); --rd-svc-ink: var(--rd-lime-700); }
+.rd-svcpage--member  { --rd-svc: var(--rd-svc-member); --rd-svc-tint: var(--rd-svc-member-tint); --rd-svc-ink: #3F8A55; }
+.rd-svcpage--general details.rd-acc[open] summary::before { background: var(--rd-ink-900, #11171C); }
+.rd-faq-group__h { display: flex; align-items: center; gap: 12px; }
+.rd-faq-group__h .rd-cross__icon { flex: none; }
+/* General / Membership: same scallop badge, simple white glyph */
+.rd-faqbadge { position: relative; }
+.rd-faqbadge .rd-scallop { width: 50px; height: 50px; }
+.rd-faqbadge .rd-faqbadge__g { position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; transform: translate(-50%, -50%); fill: #fff; color: #fff; }
+.rd-svcpage--general .rd-faqbadge__g { fill: var(--rd-ink-900, #11171C); color: var(--rd-ink-900, #11171C); }
+.rd-faqbadge .rd-scallop { width: 62px; height: 62px; }
+
+/* Membership = Mint (#BDE9C9), Retail = Lilac (#D7B9E4): true P&P secondary colours, white art */
+:root { --rd-svc-member: #BDE9C9; --rd-svc-member-tint: #E5F6EA; --rd-svc-retail: #D7B9E4; --rd-svc-retail-tint: #F1E6F6; --rd-glyph: #333F48; }
+.rd-card--member { --rd-svc: var(--rd-svc-member); --rd-svc-ink: #3F8A55; }
+.rd-card--retail { --rd-svc: var(--rd-svc-retail); --rd-svc-ink: #7A4A90; }
+
+
+/* =====================================================================
+   BLOG (Mo'Talk): category pills in service colours, featured post + grid
+   ===================================================================== */
+.rd-bhero .rd-lead { max-width: 60ch; }
+.rd-bchips { margin-top: 24px; }
+.rd-bpill { --c: var(--rd-lime-500); --t: var(--rd-lime-100, #EEF7D6); --i: var(--rd-lime-700);
+  display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; padding: 4px 10px; border-radius: 999px; background: var(--t); color: var(--i);
+  font: 700 12px var(--rd-condensed); letter-spacing: .1em; text-transform: uppercase; }
+.rd-bpill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.rd-bpill--daycare  { --c: var(--rd-svc-daycare);  --t: var(--rd-svc-daycare-tint);  --i: var(--rd-svc-daycare-ink); }
+.rd-bpill--lodging  { --c: var(--rd-svc-lodging);  --t: var(--rd-svc-lodging-tint);  --i: var(--rd-svc-lodging-ink); }
+.rd-bpill--grooming { --c: var(--rd-svc-grooming); --t: var(--rd-svc-grooming-tint); --i: var(--rd-svc-grooming-ink); }
+.rd-bpill--pickup   { --c: var(--rd-svc-pickup);   --t: var(--rd-svc-pickup-tint);   --i: var(--rd-svc-pickup-ink); }
+.rd-bpill--member   { --c: var(--rd-svc-member);   --t: var(--rd-svc-member-tint);   --i: #3F8A55; }
+.rd-bpill--health   { --c: var(--rd-ink-600);      --t: var(--rd-ink-50);            --i: var(--rd-ink-600); }
+.rd-chip--daycare.is-on  { background: var(--rd-svc-daycare-btn);  border-color: var(--rd-svc-daycare-btn); }
+.rd-chip--lodging.is-on  { background: var(--rd-svc-lodging-btn);  border-color: var(--rd-svc-lodging-btn); }
+.rd-chip--grooming.is-on { background: var(--rd-svc-grooming-btn); border-color: var(--rd-svc-grooming-btn); }
+.rd-chip--pickup.is-on   { background: var(--rd-svc-pickup-btn);   border-color: var(--rd-svc-pickup-btn); }
+.rd-chip--member.is-on   { background: #3F8A55; border-color: #3F8A55; }
+.rd-chip--general.is-on  { background: var(--rd-lime-700); border-color: var(--rd-lime-700); }
+
+.rd-bcard { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--rd-cloud-200); border-radius: var(--rd-radius); overflow: hidden; transition: transform .2s, box-shadow .2s; }
+.rd-bcard:hover { transform: translateY(-3px); box-shadow: var(--rd-shadow); }
+.rd-bcard__img { display: block; aspect-ratio: 3 / 2; overflow: hidden; background: var(--rd-cloud-100); }
+.rd-bcard__img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+.rd-bcard:hover .rd-bcard__img img { transform: scale(1.03); }
+.rd-bcard__body { display: flex; flex-direction: column; gap: 10px; padding: 20px 22px 22px; flex: 1; }
+.rd-bcard__title { margin: 0; text-wrap: balance; }
+.rd-bcard__title a { color: var(--rd-carbon); text-decoration: none; }
+.rd-bcard__title a:hover { text-decoration: underline; text-decoration-color: var(--rd-lime-500); text-underline-offset: 4px; }
+.rd-bcard__body p { margin: 0; color: var(--rd-muted); font-size: 16px; line-height: 1.55; }
+.rd-bcard__body .rd-bcard__meta { margin-top: auto; font-size: 14px; color: var(--rd-ink-400); }
+.rd-bcard--feature { display: grid; grid-template-columns: 1.25fr 1fr; margin-bottom: 24px; }
+.rd-bcard--feature .rd-bcard__img { aspect-ratio: auto; min-height: 340px; }
+.rd-bcard--feature .rd-bcard__body { justify-content: center; padding: clamp(24px, 4vw, 48px); gap: 14px; }
+.rd-bcard--feature .rd-bcard__title { font-size: clamp(28px, 3vw, 40px); }
+.rd-bcard--feature .rd-bcard__body p { font-size: 18px; }
+.rd-bcard--feature .rd-bcard__meta { margin-top: 6px; }
+.rd-bgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+@media (max-width: 1024px) { .rd-bgrid { grid-template-columns: 1fr 1fr; } .rd-bcard--feature { grid-template-columns: 1fr; } .rd-bcard--feature .rd-bcard__img { min-height: 0; aspect-ratio: 3 / 2; } }
+@media (max-width: 600px) { .rd-bgrid { grid-template-columns: 1fr; } }
+
+/* Blog: Breed profiles (Lilac) and Franchising (Carbon with lime) */
+.rd-bpill--breeds    { --c: var(--rd-svc-retail); --t: var(--rd-svc-retail-tint); --i: #7A4A90; }
+.rd-bpill--franchise { --c: var(--rd-lime-500);   --t: var(--rd-ink-800);          --i: #fff; }
+.rd-chip--breeds.is-on    { background: #7A4A90; border-color: #7A4A90; }
+.rd-chip--franchise.is-on { background: var(--rd-ink-900, #11171C); border-color: var(--rd-ink-900, #11171C); }
+.rd-btraits { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.rd-btraits li { display: inline-flex; gap: 5px; padding: 4px 9px; border-radius: 8px; background: var(--rd-cloud-100); font-size: 13px; color: var(--rd-carbon); }
+.rd-btraits b { font: 700 12px var(--rd-condensed); letter-spacing: .08em; text-transform: uppercase; color: var(--rd-ink-400); padding-top: 1px; }
+
+/* Blog: Local stories = Charcoal Blue with a pin (city shown in the meta line); Health moves to Shadow grey */
+.rd-bpill--local  { --c: var(--rd-ink-600); --t: var(--rd-ink-50); --i: var(--rd-ink-600); }
+.rd-bpill--local::before { display: none; }
+.rd-bpill svg { width: 12px; height: 12px; fill: currentColor; margin-left: -2px; }
+.rd-bpill--health { --c: #7C878E; --t: #EDEFF0; --i: #5A646B; }
+.rd-chip--local.is-on  { background: var(--rd-ink-600); border-color: var(--rd-ink-600); }
+.rd-chip--health.is-on { background: #5A646B; border-color: #5A646B; }
+.rd-bplace { display: inline-flex; align-items: center; gap: 3px; font-weight: 700; color: var(--rd-ink-600); }
+.rd-bplace svg { width: 13px; height: 13px; fill: var(--rd-lime-700); }
+/* Blog chips: the post-count badge takes a light tint of its own category (was lime on every chip) */
+.rd-chip--daycare  span { background: var(--rd-svc-daycare-tint);  color: var(--rd-svc-daycare-ink); }
+.rd-chip--lodging  span { background: var(--rd-svc-lodging-tint);  color: var(--rd-svc-lodging-ink); }
+.rd-chip--grooming span { background: var(--rd-svc-grooming-tint); color: var(--rd-svc-grooming-ink); }
+.rd-chip--pickup   span { background: var(--rd-svc-pickup-tint);   color: var(--rd-svc-pickup-ink); }
+.rd-chip--member   span { background: var(--rd-svc-member-tint);   color: #3F8A55; }
+.rd-chip--breeds   span { background: var(--rd-svc-retail-tint);   color: #7A4A90; }
+.rd-chip--local    span { background: var(--rd-ink-50);            color: var(--rd-ink-600); }
+.rd-chip--health   span { background: #EDEFF0;                     color: #5A646B; }
+.rd-chip--general  span { background: var(--rd-lime-100, #EEF7D6); color: var(--rd-lime-700); }
+.rd-chip.rd-chip--daycare.is-on span  { background: var(--rd-svc-daycare-tint);  color: var(--rd-svc-daycare-ink); }
+.rd-chip.rd-chip--lodging.is-on span  { background: var(--rd-svc-lodging-tint);  color: var(--rd-svc-lodging-ink); }
+.rd-chip.rd-chip--grooming.is-on span { background: var(--rd-svc-grooming-tint); color: var(--rd-svc-grooming-ink); }
+.rd-chip.rd-chip--pickup.is-on span   { background: var(--rd-svc-pickup-tint);   color: var(--rd-svc-pickup-ink); }
+.rd-chip.rd-chip--member.is-on span   { background: var(--rd-svc-member-tint);   color: #3F8A55; }
+.rd-chip.rd-chip--breeds.is-on span   { background: var(--rd-svc-retail-tint);   color: #7A4A90; }
+.rd-chip.rd-chip--local.is-on span    { background: var(--rd-ink-50);            color: var(--rd-ink-600); }
+.rd-chip.rd-chip--health.is-on span   { background: #EDEFF0;                     color: #5A646B; }
+.rd-chip.rd-chip--general.is-on span  { background: var(--rd-lime-100, #EEF7D6); color: var(--rd-lime-700); }
+
+/* Location cards, compact: photo on the left, details on the right, two across on a laptop.
+   Keeps a whole card (and usually two) on screen at 1280x720. */
+@media (min-width: 700px) {
+  .rd-lgrid { grid-template-columns: repeat(auto-fill, minmax(460px, 1fr)); gap: 16px; }
+  .rd-lcard:not(.rd-lcard--next) { display: grid; grid-template-columns: 180px 1fr; }
+  .rd-lcard:not(.rd-lcard--next) .rd-lcard__img { aspect-ratio: auto; height: 100%; min-height: 200px; }
+  .rd-lcard__ph { border-bottom: 0; border-right: 1px dashed var(--rd-cloud-200); padding: 40px 10px 10px; text-align: center; }
+  .rd-lcard__ph svg { width: 32px; height: 32px; }
+  .rd-lcard__ph span { font-size: 11px; }
+  .rd-lcard__badge { left: 8px; top: 8px; right: 8px; font-size: 10px !important; padding: 4px 8px !important; text-align: center; }
+  .rd-lcard__body { padding: 14px 18px 14px; gap: 4px; }
+  .rd-lcard .rd-h3 { font-size: 22px; }
+  .rd-lcard__svcs { margin: 4px 0 0; }
+  details.rd-lcard__hours summary { padding: 6px 0 !important; }
+  .rd-lcard__actions { padding-top: 6px; }
+  .rd-lcard__page { font-size: 14px; margin-top: 2px; }
+}
+.rd-lstate + .rd-lstate { margin-top: 32px; }
+.rd-lstate__head { margin-bottom: 14px; padding-bottom: 8px; }
+.rd-lstate__head .rd-h2 { font-size: clamp(26px, 2.6vw, 34px); }
+.rd-lnext { margin-top: 32px; padding: 20px 24px; }
+/* States with one location sit side by side; a state with several spans the full row */
+.rd-lstates { display: grid; grid-template-columns: repeat(auto-fill, minmax(460px, 1fr)); gap: 28px 16px; align-items: start; }
+.rd-lstates .rd-lstate + .rd-lstate { margin-top: 0; }
+.rd-lstate--wide { grid-column: 1 / -1; }
+.rd-lstate .rd-lgrid { grid-template-columns: repeat(auto-fill, minmax(460px, 1fr)); }
+@media (max-width: 699px) { .rd-lstates, .rd-lstate .rd-lgrid { grid-template-columns: 1fr; } }
+/* Locations hero: shorter so the first cards show on a laptop screen */
+.rd-lochero { padding-block: clamp(24px, 3vw, 40px) !important; }
+.rd-lochero .rd-h1 { font-size: clamp(34px, 4vw, 52px) !important; margin-bottom: 6px; }
+.rd-lochero .rd-lead { margin-bottom: 0; }
+.rd-lochero .rd-finder { margin-top: 16px; gap: 10px; }
+.rd-lochero .rd-finder__search input { height: 48px; }
+.rd-lochero__meta { margin-top: 10px; }
+/* Catalog cards without photos: name + status badge on one row */
+.rd-lcard:not(.rd-lcard--next) { display: flex !important; }
+.rd-lcard__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.rd-lcard__head .rd-lcard__badge { position: static; margin: 2px 0 0; flex: none; }
+.rd-lnext--grid { grid-column: 1 / -1; margin-top: 0; }
+/* Catalog card v3: details left, hours right (always visible), one action row. No stretching to a neighbour's height. */
+.rd-lgrid, .rd-lstates { align-items: start; }
+.rd-lcard__body { gap: 8px !important; }
+.rd-lcard__cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 18px; }
+.rd-lcard__info { display: flex; flex-direction: column; gap: 4px; }
+.rd-lcard__hrs { border-left: 1px solid var(--rd-cloud-200); padding-left: 16px; }
+.rd-lcard__hrs .rd-lcard__pplabel { display: block; margin: 0 0 4px; }
+.rd-lcard__hrs .rd-hours { width: 100%; font-size: 13px; line-height: 1.35; margin: 0; }
+.rd-lcard__hrs .rd-hours th { display: block; padding: 0; font: 700 12px var(--rd-condensed); letter-spacing: .06em; text-transform: uppercase; color: var(--rd-carbon); border: 0; }
+.rd-lcard__hrs .rd-hours td { display: block; padding: 0 0 6px; color: var(--rd-muted); border: 0; }
+.rd-lcard__hrs .rd-hours tr { display: block; border: 0; }
+.rd-lcard__actions { margin-top: 4px !important; padding-top: 10px !important; border-top: 1px solid var(--rd-cloud-100); flex-wrap: wrap; }
+.rd-lcard__actions .rd-lcard__page { margin: 0 0 0 auto; }
+@media (max-width: 520px) {
+  .rd-lcard__cols { grid-template-columns: 1fr; gap: 10px; }
+  .rd-lcard__hrs { border-left: 0; padding-left: 0; border-top: 1px solid var(--rd-cloud-100); padding-top: 8px; }
+  .rd-lcard__actions .rd-lcard__page { margin: 4px 0 0; flex-basis: 100%; }
+}
+
+
+/* =====================================================================
+   LOCATION TILES + POP-UP (tiles on Locations and the homepage; details open in a <dialog>)
+   ===================================================================== */
+.rd-lgrid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important; gap: 14px; }
+.rd-lstates { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important; }
+.rd-lstate .rd-lgrid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important; }
+.rd-ltile-wrap { scroll-margin-top: 130px; }
+.rd-ltile { width: 100%; display: grid; gap: 8px; text-align: left; padding: 16px 18px; background: #fff; border: 1px solid var(--rd-cloud-200); border-radius: 18px;
+  cursor: pointer; font: inherit; color: inherit; transition: border-color .2s, box-shadow .2s, transform .2s; }
+.rd-ltile:hover, .rd-ltile:focus-visible { border-color: var(--rd-lime-600); box-shadow: var(--rd-shadow); transform: translateY(-2px); outline: none; }
+.rd-ltile.is-sample { border-style: dashed; border-color: #E3C46A; }
+.rd-ltile__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.rd-ltile__name { font: 700 22px/1.1 var(--rd-condensed); text-transform: uppercase; letter-spacing: .02em; color: var(--rd-carbon); }
+.rd-ltile__badge { flex: none; margin: 2px 0 0 !important; font-size: 10px !important; padding: 4px 8px !important; }
+.rd-ltile__sub { font-size: 14px; color: var(--rd-muted); }
+.rd-ltile__svcs { display: flex; gap: 5px; }
+.rd-ltile__svcs .rd-cross__icon { width: 30px; height: 30px; color: var(--rd-svc); box-shadow: 0 0 0 1px var(--rd-cloud-200); }
+.rd-ltile__svcs .rd-cross__icon svg { width: 25px; height: 25px; }
+.rd-ltile__more { font: 700 14px var(--rd-condensed); letter-spacing: .04em; color: var(--rd-lime-700); }
+.rd-ltile:hover .rd-ltile__more span { margin-left: 4px; }
+
+.rd-ldlg { width: min(720px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); padding: 0; border: 0; border-radius: 22px; overflow: auto; background: #fff; color: var(--rd-carbon);
+  box-shadow: 0 30px 80px rgba(24,28,36,.35); }
+.rd-ldlg::backdrop { background: rgba(24,28,36,.55); }
+.rd-ldlg[open] { animation: rd-dlg-in .18s ease-out; }
+@keyframes rd-dlg-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.rd-ldlg__close { position: absolute; right: 12px; top: 12px; z-index: 2; width: 40px; height: 40px; border-radius: 50%; border: 0; background: #fff; color: var(--rd-carbon);
+  font: 400 26px/1 var(--rd-body); cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
+.rd-ldlg__close:hover { background: var(--rd-lime-500); }
+.rd-ldlg__media { position: relative; height: 200px; background: var(--rd-cloud-100); overflow: hidden; }
+.rd-ldlg__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.rd-ldlg__media .rd-lcard__ph { border: 0; padding: 0; }
+.rd-ldlg__media .rd-lcard__badge { position: absolute; left: 14px; top: 14px; right: auto; margin: 0; font-size: 11px !important; }
+.rd-ldlg .rd-lcard__body { padding: 20px 24px 22px; display: flex; flex-direction: column; gap: 10px; }
+.rd-ldlg__name { margin: 0; font-size: 28px; }
+@media (max-width: 520px) { .rd-ldlg__media { height: 150px; } .rd-ldlg .rd-lcard__body { padding: 16px; } }
+.rd-ldlg:not([open]) { display: none !important; }  /* a theme/homepage rule was forcing closed dialogs to display:block */
+
+/* Hover / focus labels on service icons (locations tiles + pop-ups): a small bubble in the service's colour */
+.rd-tip { position: relative; }
+.rd-tip::after, .rd-tip::before { position: absolute; left: 50%; pointer-events: none; opacity: 0; transition: opacity .15s, transform .15s; z-index: 5; }
+.rd-tip::after { content: attr(data-tip); bottom: calc(100% + 9px); transform: translate(-50%, 4px); white-space: nowrap;
+  padding: 5px 9px; border-radius: 8px; background: var(--rd-svc-btn, var(--rd-ink-800)); color: #fff;
+  font: 700 12px/1 var(--rd-condensed); letter-spacing: .08em; text-transform: uppercase; box-shadow: 0 4px 12px rgba(24,28,36,.2); }
+.rd-tip::before { content: ""; bottom: calc(100% + 3px); transform: translate(-50%, 4px); border: 6px solid transparent; border-bottom: 0; border-top-color: var(--rd-svc-btn, var(--rd-ink-800)); }
+.rd-tip:hover::after, .rd-tip:hover::before, .rd-tip:focus-visible::after, .rd-tip:focus-visible::before { opacity: 1; transform: translate(-50%, 0); }
+.rd-tip:focus-visible { outline: none; }
+.rd-tip:focus-visible .rd-cross__icon { box-shadow: 0 0 0 2px var(--rd-svc-btn, var(--rd-ink-600)); }
+.rd-tip--pp { --rd-svc-btn: var(--rd-ink-600); }
+
+/* Location status: Open now (lime) · Coming soon (Charcoal Blue outline) · Sample (yellow) */
+.rd-badge--soon { background: #fff; border-color: var(--rd-ink-600); color: var(--rd-ink-600); }
+.rd-ltile.is-soon { background: var(--rd-cloud-50, #FCFBFA); }
+.rd-ltile.is-soon .rd-ltile__svcs { opacity: .55; }
+.rd-ltile--all { text-decoration: none; background: var(--rd-lime-50, #F6FBE8); border: 1.5px dashed var(--rd-lime-600); align-content: center; }
+.rd-ltile--all .rd-ltile__name { color: var(--rd-lime-ink, #3E5A00); }
+.rd-lochero__meta b { color: var(--rd-carbon); }
+/* Header location picker: long lists scroll */
+.rd-locmenu { max-height: min(70vh, 520px); overflow-y: auto; overscroll-behavior: contain; }
+
+/* States pack into a 4-column grid: each state spans as many columns as it has locations (max 4), so
+   one-location states sit beside each other and nothing leaves a half-empty row. */
+.rd-lstates { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; grid-auto-flow: row dense; gap: 28px 14px; }
+.rd-lstate--wide { grid-column: auto; }
+.rd-lspan-1 { grid-column: span 1; } .rd-lspan-2 { grid-column: span 2; } .rd-lspan-3 { grid-column: span 3; } .rd-lspan-4 { grid-column: span 4; }
+.rd-lstate .rd-lgrid { gap: 14px; }
+.rd-lspan-1 .rd-lgrid { grid-template-columns: 1fr !important; }
+.rd-lspan-2 .rd-lgrid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+.rd-lspan-3 .rd-lgrid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+.rd-lspan-4 .rd-lgrid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+@media (max-width: 1024px) {
+  .rd-lstates { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .rd-lspan-3, .rd-lspan-4 { grid-column: span 2; }
+  .rd-lspan-3 .rd-lgrid, .rd-lspan-4 .rd-lgrid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 640px) {
+  .rd-lstates { grid-template-columns: 1fr !important; }
+  .rd-lspan-2, .rd-lspan-3, .rd-lspan-4 { grid-column: span 1; }
+  .rd-lstate .rd-lgrid { grid-template-columns: 1fr !important; }
+}
+
+/* =====================================================================
+   LOCATIONS v4: state sidebar + results. "All" = every state, separated by a thin rule and small label.
+   ===================================================================== */
+.rd-lbrowse { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
+.rd-lside { position: sticky; top: 130px; }
+.rd-lside__label { margin: 0 0 8px; font: 700 12px var(--rd-condensed); letter-spacing: .14em; text-transform: uppercase; color: var(--rd-ink-400); }
+.rd-lside ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.rd-lside__link { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 12px; border-radius: 10px;
+  font: 700 16px var(--rd-condensed); letter-spacing: .03em; color: var(--rd-carbon); text-decoration: none; }
+.rd-lside__link span { min-width: 24px; padding: 1px 7px; border-radius: 999px; background: var(--rd-cloud-100); font: 700 12px var(--rd-body); text-align: center; color: var(--rd-muted); }
+.rd-lside__link:hover { background: var(--rd-cloud-100); }
+.rd-lside__link.is-on { background: var(--rd-ink-800); color: #fff; }
+.rd-lside__link.is-on span { background: var(--rd-lime-500); color: var(--rd-ink-900, #11171C); }
+.rd-lside li:first-child { padding-bottom: 6px; margin-bottom: 6px; border-bottom: 1px solid var(--rd-cloud-200); }
+
+/* results: plain stacked states (undo the packed-span layout) */
+.rd-lresults .rd-lstates { display: block !important; }
+.rd-lresults .rd-lstate { margin: 0; padding: 18px 0 22px; border-top: 1px solid var(--rd-cloud-200); }
+.rd-lresults .rd-lstate:first-child { border-top: 0; padding-top: 0; }
+.rd-lresults .rd-lstate__head { border: 0; margin: 0 0 12px; padding: 0; display: flex; align-items: baseline; gap: 10px; }
+.rd-lstate__name { margin: 0; font: 700 15px var(--rd-condensed); letter-spacing: .12em; text-transform: uppercase; color: var(--rd-carbon); }
+.rd-lresults .rd-lstate .rd-lgrid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)) !important; gap: 12px; }
+.rd-lstates.is-one-state .rd-lstate { border-top: 0; padding-top: 0; }
+.rd-lempty { margin-top: 8px; }
+
+@media (max-width: 860px) {
+  .rd-lbrowse { grid-template-columns: 1fr; gap: 14px; }
+  .rd-lside { position: static; }
+  .rd-lside__label { display: none; }
+  .rd-lside ul { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
+  .rd-lside li:first-child { padding: 0; margin: 0; border: 0; }
+  .rd-lside__link { white-space: nowrap; border: 1px solid var(--rd-cloud-200); border-radius: 999px; padding: 7px 12px; font-size: 14px; }
+}
+.rd-lochero > .rd-wrap { width: 100%; box-sizing: border-box; }   /* hero was shrink-wrapped and centred; align with the sidebar */
+.rd-lcard__actions .rd-lcard__page { margin: 0 !important; font-size: inherit; }
+/* Hero text starts where the results column starts (sidebar 220px + the browse gap) */
+@media (min-width: 861px) {
+  .rd-lochero > .rd-wrap > * { margin-left: calc(220px + clamp(20px, 3vw, 40px)); }
+}
+/* Phone: the state chip row must scroll inside itself, not widen the page */
+.rd-lbrowse { grid-template-columns: 220px minmax(0, 1fr); }
+.rd-lbrowse > * { min-width: 0; }
+@media (max-width: 860px) { .rd-lbrowse { grid-template-columns: minmax(0, 1fr); } }
+/* Location landing hero: breathing room between the address/phone line and the buttons */
+.rd-lp__nap { margin: 20px 0 28px; }
+.rd-lp .rd-phero .rd-btns { margin-top: 0; }
+.rd-lp__media .rd-lcard__badge { left: 14px; top: 14px; right: auto; font-size: 11px !important; padding: 4px 10px !important; }

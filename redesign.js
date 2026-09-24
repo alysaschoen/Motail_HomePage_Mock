@@ -170,14 +170,14 @@
   /* ---- Locations finder: live search + state chips ---- */
   var finder = document.querySelector('[data-finder]');
   if (finder) {
-    var q = finder.querySelector('[data-finder-q]'), chipsEl = finder.querySelectorAll('[data-state]');
+    var q = finder.querySelector('[data-finder-q]'), chipsEl = document.querySelectorAll('[data-lside] [data-state]');
     var states = document.querySelectorAll('.rd-lstate'), empty = document.querySelector('[data-finder-empty]');
     var active = 'all';
     var run = function () {
       var term = (q.value || '').trim().toLowerCase(), shown = 0;
       states.forEach(function (sec) {
         var inState = active === 'all' || sec.getAttribute('data-state') === active, n = 0;
-        sec.querySelectorAll('.rd-lcard').forEach(function (c) {
+        sec.querySelectorAll('[data-search]').forEach(function (c) {
           var hit = inState && (!term || c.getAttribute('data-search').indexOf(term) > -1 || c.textContent.toLowerCase().indexOf(term) > -1);
           c.hidden = !hit; if (hit) n++;
         });
@@ -190,15 +190,59 @@
         e.preventDefault();
         active = c.getAttribute('data-state');
         chipsEl.forEach(function (x) { x.classList.toggle('is-on', x === c); x.setAttribute('aria-current', String(x === c)); });
+        document.querySelectorAll('.rd-lstates').forEach(function (g) { g.classList.toggle('is-one-state', active !== 'all'); });
         run();
       });
     });
     q.addEventListener('input', run);
     finder.addEventListener('submit', function (e) { e.preventDefault(); run(); });
     var h = (location.hash || '').replace('#state-', '');
-    var pre = finder.querySelector('[data-state="' + h + '"]');
+    var pre = document.querySelector('[data-lside] [data-state="' + h + '"]');
     if (pre && h) pre.click();
   }
+
+  /* ---- Blog: category chips filter the posts; sample post links show a note ---- */
+  var bchips = document.querySelector('[data-bchips]');
+  if (bchips) {
+    var posts = document.querySelectorAll('.rd-bcard'), bempty = document.querySelector('[data-bempty]');
+    var feat = document.querySelector('[data-bfeature]');
+    bchips.querySelectorAll('[data-bcat]').forEach(function (c) {
+      c.addEventListener('click', function (e) {
+        e.preventDefault();
+        var cat = c.getAttribute('data-bcat'), n = 0;
+        bchips.querySelectorAll('[data-bcat]').forEach(function (x) { x.classList.toggle('is-on', x === c); x.setAttribute('aria-current', String(x === c)); });
+        posts.forEach(function (post) { var hit = cat === 'all' || post.getAttribute('data-cat') === cat; post.hidden = !hit; if (hit) n++; });
+        if (feat) feat.hidden = feat.querySelector('.rd-bcard').hidden;
+        if (bempty) bempty.hidden = n > 0;
+      });
+    });
+  }
+  document.querySelectorAll('[data-sample-post]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var t = document.getElementById('rd-mock-toast');
+      if (!t) { t = document.createElement('div'); t.id = 'rd-mock-toast'; t.setAttribute('role', 'status');
+        t.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:2001;background:#181C24;color:#fff;font:600 15px system-ui,sans-serif;padding:12px 18px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.3)';
+        document.body.appendChild(t); }
+      t.textContent = 'Sample post: the article page is next on the list.';
+      clearTimeout(t._h); t._h = setTimeout(function () { t.remove(); }, 2200);
+    });
+  });
+
+  /* ---- Location tiles: click opens the location's pop-up (native <dialog>); #slug in the URL opens it too ---- */
+  var openDlg = function (d, from) {
+    if (!d || typeof d.showModal !== 'function') return;
+    d._from = from || null; d.showModal();
+  };
+  document.querySelectorAll('[data-dlg]').forEach(function (t) {
+    t.addEventListener('click', function () { openDlg(document.getElementById(t.getAttribute('data-dlg')), t); });
+  });
+  document.querySelectorAll('dialog.rd-ldlg').forEach(function (d) {
+    d.addEventListener('click', function (e) { if (e.target === d || e.target.closest('[data-dlg-close]')) d.close(); });
+    d.addEventListener('close', function () { if (d._from) d._from.focus(); });
+  });
+  var hashSlug = (location.hash || '').slice(1);
+  if (hashSlug && document.getElementById('dlg-' + hashSlug)) openDlg(document.getElementById('dlg-' + hashSlug));
 
   /* ---- Mockup forms don't submit anywhere ---- */
   document.querySelectorAll('form[data-mock]').forEach(function (f) {
