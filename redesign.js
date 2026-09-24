@@ -6,22 +6,38 @@
   document.querySelectorAll('.rd-nav__item').forEach(function (item) {
     var btn = item.querySelector('.rd-nav__parent');
     if (!btn) return;
-    var hoveredAt = 0;
-    btn.addEventListener('click', function () {
-      // A click that lands right after hover-open should keep it open, not toggle it shut
-      var open = !item.classList.contains('is-open') || Date.now() - hoveredAt < 400;
-      closeMenus();
+    var closeTimer = null;
+    function setOpen(open) {
       item.classList.toggle('is-open', open);
       btn.setAttribute('aria-expanded', String(open));
-    });
-    if (window.matchMedia('(hover: hover) and (min-width: 1025px)').matches) {
-      item.addEventListener('mouseenter', function () { hoveredAt = Date.now(); item.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true'); });
-      item.addEventListener('mouseleave', function () { item.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); });
+      if (!open) item.classList.remove('is-pinned');
     }
+    // Click pins the menu open (a click after hover-open no longer shuts it); a second click on a pinned menu closes it
+    btn.addEventListener('click', function () {
+      var pinned = item.classList.contains('is-pinned');
+      closeMenus(item);
+      if (pinned) { setOpen(false); return; }
+      setOpen(true);
+      item.classList.add('is-pinned');
+    });
+    // Hover opens on desktop; leaving waits a moment so the pointer can travel to the menu
+    item.addEventListener('mouseenter', function () {
+      if (!window.matchMedia('(hover: hover) and (min-width: 1025px)').matches) return;
+      clearTimeout(closeTimer);
+      closeMenus(item);
+      setOpen(true);
+    });
+    item.addEventListener('mouseleave', function () {
+      if (!window.matchMedia('(hover: hover) and (min-width: 1025px)').matches) return;
+      if (item.classList.contains('is-pinned')) return;
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(function () { setOpen(false); }, 350);
+    });
   });
-  function closeMenus() {
+  function closeMenus(except) {
     document.querySelectorAll('.rd-nav__item.is-open').forEach(function (i) {
-      i.classList.remove('is-open');
+      if (i === except) return;
+      i.classList.remove('is-open', 'is-pinned');
       var b = i.querySelector('.rd-nav__parent'); if (b) b.setAttribute('aria-expanded', 'false');
     });
   }

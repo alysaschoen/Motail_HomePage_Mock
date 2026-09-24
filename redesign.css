@@ -926,3 +926,62 @@ details.rd-acc a, details.wp-block-details a { color: var(--rd-carbon) !importan
 .rd-safety strong { font: 400 30px/1 var(--rd-display); color: var(--rd-lime-300); }
 .rd-safety span { color: var(--rd-ink-50); }
 .rd-safety__note { margin: 22px 0 0; max-width: 80ch; color: var(--rd-ink-200); font-size: 15px; }
+
+/* =====================================================================
+   SERVICE-COLOURED BUTTONS
+   Filled with the service colour at rest (dark text: 5.4–6.8:1),
+   white with a service-colour outline and text on hover (5.4–6.4:1).
+   Applies to booking buttons on service pages and the homepage service cards.
+   Site-wide buttons (header Book Now, phone action bar) stay lime.
+   ===================================================================== */
+.rd-card--daycare  { --rd-svc-ink: var(--rd-svc-daycare-ink); }
+.rd-card--lodging  { --rd-svc-ink: var(--rd-svc-lodging-ink); }
+.rd-card--grooming { --rd-svc-ink: var(--rd-svc-grooming-ink); }
+.rd-card--pickup   { --rd-svc-ink: var(--rd-svc-pickup-ink); }
+
+.rd-svcpage .rd-btn--primary,
+.rd-svcpage .rd-btn--dark,
+.rd-card .rd-card__actions .rd-btn--dark {
+  background: var(--rd-svc);
+  color: var(--rd-ink-900) !important;
+  border: 2px solid var(--rd-svc);
+  box-shadow: 0 3px 0 var(--rd-svc-ink);
+}
+.rd-svcpage .rd-btn--primary:hover, .rd-svcpage .rd-btn--primary:focus-visible,
+.rd-svcpage .rd-btn--dark:hover, .rd-svcpage .rd-btn--dark:focus-visible,
+.rd-card .rd-card__actions .rd-btn--dark:hover, .rd-card .rd-card__actions .rd-btn--dark:focus-visible {
+  background: #fff;
+  color: var(--rd-svc-ink) !important;
+  border-color: var(--rd-svc);
+  box-shadow: 0 3px 0 var(--rd-svc);
+}
+
+/* Button shade of each service colour: the lightest shade that carries WHITE text at ≥ 4.6:1 */
+:root { --rd-svc-daycare-btn: #B55C16; --rd-svc-lodging-btn: #8566AD; --rd-svc-grooming-btn: #22827A; --rd-svc-pickup-btn: #557F28; }
+.rd-svcpage--daycare, .rd-card--daycare   { --rd-svc-btn: var(--rd-svc-daycare-btn); }
+.rd-svcpage--lodging, .rd-card--lodging   { --rd-svc-btn: var(--rd-svc-lodging-btn); }
+.rd-svcpage--grooming, .rd-card--grooming { --rd-svc-btn: var(--rd-svc-grooming-btn); }
+.rd-svcpage--pickup, .rd-card--pickup     { --rd-svc-btn: var(--rd-svc-pickup-btn); }
+
+.rd-svcpage .rd-btn--primary,
+.rd-svcpage .rd-btn--dark,
+.rd-card .rd-card__actions .rd-btn--dark {
+  background: var(--rd-svc-btn);
+  border-color: var(--rd-svc-btn);
+  color: #fff !important;
+  box-shadow: 0 3px 0 var(--rd-svc-ink);
+}
+.rd-svcpage .rd-btn--primary:hover, .rd-svcpage .rd-btn--primary:focus-visible,
+.rd-svcpage .rd-btn--dark:hover, .rd-svcpage .rd-btn--dark:focus-visible,
+.rd-card .rd-card__actions .rd-btn--dark:hover, .rd-card .rd-card__actions .rd-btn--dark:focus-visible {
+  background: #fff;
+  border-color: var(--rd-svc-btn);
+  color: var(--rd-svc-btn) !important;
+  box-shadow: 0 3px 0 var(--rd-svc-btn);
+}
+
+/* Invisible bridge over the gap between a nav item and its dropdown, so moving the
+   pointer down to the menu never counts as leaving it */
+@media (min-width: 1025px) {
+  .rd-nav__menu::before { content: ""; position: absolute; left: 0; right: 0; top: -14px; height: 14px; }
+}
