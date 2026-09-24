@@ -108,6 +108,32 @@
     Object.keys(map).forEach(function (id) { io.observe(document.getElementById(id)); });
   }
 
+
+  /* ---- Membership savings calculator (one dog, Des Moines prices) ---- */
+  var calc = document.querySelector('[data-calc]');
+  if (calc) {
+    var $ = function (sel) { return calc.querySelector(sel); };
+    var money = function (n) { return (n < 0 ? '−$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); };
+    var out = function (k, v) { calc.querySelectorAll('[data-out="' + k + '"]').forEach(function (el) { el.textContent = v; }); };
+    var update = function () {
+      var days = +$('#calc-days').value, rate = +$('input[name="calc-length"]:checked').value;
+      var nights = +$('#calc-nights').value, suite = +$('#calc-suite').value;
+      var grooms = +$('#calc-grooms').value, groom = +$('#calc-groom').value;
+      var spend = days * 52 * rate + nights * suite + grooms * groom;
+      var discount = spend * 0.10, credits = 120;
+      var annual = discount + credits - 264, monthly = discount + credits - 288;
+      out('days', days); out('nights', nights); out('grooms', grooms);
+      out('spend', money(spend)); out('discount', money(discount));
+      out('verdict', annual >= 0 ? "You'd come out ahead by" : "You'd be short by");
+      out('net', money(Math.abs(annual)));
+      out('monthly', (monthly >= 0 ? money(monthly) + ' ahead' : money(Math.abs(monthly)) + ' short'));
+      calc.classList.toggle('is-ahead', annual >= 0);
+    };
+    calc.addEventListener('input', update);
+    calc.addEventListener('change', update);
+    update();
+  }
+
   /* ---- Mockup forms don't submit anywhere ---- */
   document.querySelectorAll('form[data-mock]').forEach(function (f) {
     f.addEventListener('submit', function (e) {
