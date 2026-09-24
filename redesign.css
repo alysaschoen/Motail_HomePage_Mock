@@ -1147,3 +1147,63 @@ details.rd-acc a, details.wp-block-details a { color: var(--rd-carbon) !importan
 .rd-calc__alt b { color: #fff; }
 .rd-calc__result .rd-btn { justify-self: start; margin-top: 6px; }
 .rd-calc__fine { margin: 4px 0 0; font-size: 12px; color: var(--rd-ink-400); line-height: 1.45; }
+
+/* =====================================================================
+   NEW CUSTOMERS PAGE
+   ===================================================================== */
+.rd-picks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+@media (max-width: 960px) { .rd-picks { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .rd-picks { grid-template-columns: 1fr; } }
+.rd-pick { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 22px; border: 1px solid var(--rd-cloud-200); border-radius: var(--rd-radius);
+  background: #fff; color: var(--rd-carbon); text-decoration: none; transition: border-color .2s, transform .2s; }
+.rd-pick:hover { border-color: var(--rd-svc); transform: translateY(-2px); }
+.rd-pick .rd-cross__icon { color: var(--rd-svc); margin-bottom: 10px; }
+.rd-pick__need { font: 400 22px/1.15 var(--rd-display); color: var(--rd-carbon); }
+.rd-pick strong { font: 700 16px var(--rd-condensed); letter-spacing: .08em; text-transform: uppercase; color: var(--rd-svc-ink); }
+.rd-pick small { color: var(--rd-muted); font-size: 15px; }
+.rd-pick__go { position: absolute; right: 20px; top: 22px; font-size: 22px; color: var(--rd-svc); }
+
+.rd-pup { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+@media (max-width: 900px) { .rd-pup { grid-template-columns: 1fr; } }
+.rd-pup__intro img { width: 100%; max-width: 380px; aspect-ratio: 1; object-fit: cover; object-position: 50% 62%; border-radius: 200px 200px var(--rd-radius) var(--rd-radius); display: block; margin-top: 8px; }
+.rd-pup__cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.rd-pup__cards > li { display: flex; gap: 18px; align-items: flex-start; background: #fff; border: 1px solid var(--rd-cloud-200); border-radius: var(--rd-radius); padding: 22px; }
+.rd-pup__cards .rd-cross__icon { color: var(--rd-svc); }
+.rd-pup__cards p { margin: 0 0 10px; color: var(--rd-muted); }
+.rd-pup__cards .rd-h3 { margin-bottom: 6px; }
+.rd-pup__cards .rd-link { border-bottom-color: var(--rd-svc, var(--rd-lime)); }
+.rd-pup__cards .rd-checklist { margin-top: 6px; }
+
+.rd-steps--four { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 960px) { .rd-steps--four { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .rd-steps--four { grid-template-columns: 1fr; } }
+
+.rd-ready { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: stretch; }
+@media (max-width: 1000px) { .rd-ready { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .rd-ready { grid-template-columns: 1fr; } }
+.rd-vax { list-style: none; margin: 8px 0 12px; padding: 0; display: grid; gap: 8px; }
+.rd-vax li { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 14px; border-radius: 12px; background: var(--rd-lime-50); border: 1px solid var(--rd-lime-100); }
+.rd-vax strong { color: var(--rd-carbon); }
+.rd-vax span { color: var(--rd-muted); font-size: 14px; }
+.rd-ready__note { margin: 0; color: var(--rd-muted); font-size: 15px; }
+.rd-panel--dark { background: var(--rd-ink-800); border-color: var(--rd-ink-800); color: var(--rd-ink-50); }
+.rd-panel--dark .rd-checklist li { color: var(--rd-ink-50); }
+
+/* Puppy 101: four guide cards (socialization, vaccinations, grooming, boarding) */
+.rd-pup { grid-template-columns: .7fr 1.3fr; }
+.rd-p101 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 760px) { .rd-p101 { grid-template-columns: 1fr; } }
+.rd-p101__card { background: #fff; border: 1px solid var(--rd-cloud-200); border-radius: var(--rd-radius); padding: 22px; display: flex; flex-direction: column; gap: 10px; }
+.rd-p101__card .rd-cross__icon { color: var(--rd-svc); width: 58px; height: 58px; }
+.rd-p101__card .rd-cross__icon svg { width: 44px; height: 44px; }
+.rd-p101__card .rd-stream__dot { width: 58px; height: 58px; font-size: 26px; }
+.rd-p101__card .rd-h3 { margin: 4px 0 0; }
+.rd-p101__why { margin: 0; color: var(--rd-carbon); font-weight: 600; line-height: 1.45; }
+.rd-p101__tips { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.rd-p101__tips li { position: relative; padding-left: 20px; color: var(--rd-muted); font-size: 15px; line-height: 1.45; }
+.rd-p101__tips li::before { content: ""; position: absolute; left: 2px; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--rd-svc, var(--rd-lime-500)); }
+.rd-p101__help { margin: auto 0 0; padding-top: 12px; border-top: 1px dashed var(--rd-cloud-200); font-size: 15px; color: var(--rd-muted); line-height: 1.45; }
+.rd-p101__help b { color: var(--rd-carbon); }
+.rd-p101__help a { color: var(--rd-svc-ink, var(--rd-lime-700)); font-weight: 700; white-space: nowrap; }
+.rd-p101__help a::after { content: " →"; }
+.rd-p101__note { margin: 20px 0 0; color: var(--rd-muted); font-size: 14px; }
